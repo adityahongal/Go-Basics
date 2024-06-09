@@ -19,3 +19,7 @@ import "fmt"
 func compileProcess() {
 	fmt.Println("the compiled textio server is starting")
 }
+
+func main() {
+	compileProcess()
+}
