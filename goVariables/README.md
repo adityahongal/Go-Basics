@@ -41,3 +41,85 @@ These two lines of code are equivalent:
 
 Outside of a function (in the global/package scope), every statement begins with a keyword (var, func, and so on) and so the := construct is not available.
 
+# TYPE INFERENCE
+
+To declare a variable without specifying an explicit type (either by using the := syntax or var = expression syntax), the variable's type is inferred from the value on the right hand side.
+
+When the right hand side of the declaration is typed, the new variable is of that same type:
+
+#### var i int
+### j := i // j is also an int
+
+However, when the right hand side is a literal value (an untyped numeric constant like 42 or 3.14), the new variable will be an int, float64, or complex128 depending on its precision:
+
+#### i := 42           // int
+#### f := 3.14         // float64
+#### g := 0.867 + 0.5i // complex128
+
+# SAME LINE DECLARATIONS
+
+You can declare multiple variables on the same line:
+#### mileage, company := 80276, "Tesla"
+
+# TYPE SIZES
+
+Ints, uints, floats, and complex numbers all have type sizes.
+
+int  int8  int16  int32  int64 // whole numbers
+
+uint uint8 uint16 uint32 uint64 uintptr // positive whole numbers
+
+float32 float64 // decimal numbers
+
+complex64 complex128 // imaginary numbers (rare)
+
+The size (8, 16, 32, 64, 128, etc) represents how many bits in memory will be used to store the variable. The "default" int and uint types refer to their respective 32 or 64-bit sizes depending on the environment of the user.
+
+The standard sizes that should be used unless the developer has a specific need are:
+
+int
+uint
+float64
+complex128
+
+### Some types can be converted like this:
+#### temperatureFloat := 88.26
+#### temperatureInt := int64(temperatureFloat)
+
+# WHEN SHOULD I USE A MORE SPECIFIC TYPE?
+
+### When you're super concerned about performance and memory usage.
+
+#### OR Unless you have a good reason to, stick to the following types:
+
+- bool
+- string
+- int
+- uint
+- byte
+- rune
+- float64
+- complex128
+
+# CONSTANTS
+
+Constants are declared with the const keyword. They can't use the := short declaration syntax.
+
+#### const pi = 3.14159
+
+# COMPUTED CONSTANTS
+
+Constants must be known at compile time. They are usually declared with a static value:
+#### const myInt = 15
+
+#### For example, this is valid:
+
+#### const firstName = "Lane"
+#### const lastName = "Wagner"
+#### const fullName = firstName + " " + lastName
+
+That said, you cannot declare a constant that can only be computed at run-time like you can in JavaScript. 
+
+#### This breaks:
+#### // the current time can only be known when the program is running
+#### const currentTime = time.Now()
