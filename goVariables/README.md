@@ -48,7 +48,7 @@ To declare a variable without specifying an explicit type (either by using the :
 When the right hand side of the declaration is typed, the new variable is of that same type:
 
 #### var i int
-### j := i // j is also an int
+### j := i          // j is also an int
 
 However, when the right hand side is a literal value (an untyped numeric constant like 42 or 3.14), the new variable will be an int, float64, or complex128 depending on its precision:
 
@@ -112,7 +112,7 @@ Constants are declared with the const keyword. They can't use the := short decla
 Constants must be known at compile time. They are usually declared with a static value:
 #### const myInt = 15
 
-#### For example, this is valid:
+For example, this is valid:
 
 #### const firstName = "Lane"
 #### const lastName = "Wagner"
@@ -121,5 +121,44 @@ Constants must be known at compile time. They are usually declared with a static
 That said, you cannot declare a constant that can only be computed at run-time like you can in JavaScript. 
 
 #### This breaks:
-#### // the current time can only be known when the program is running
+// the current time can only be known when the program is running
 #### const currentTime = time.Now()
+
+# FORMATTING STRINGS IN GO
+
+Go follows the printf tradition from the C language. In my opinion, string formatting/interpolation in Go is less elegant than Python's f-strings, unfortunately.
+
+#### fmt.Printf - Prints a formatted string to standard out.
+#### fmt.Sprintf() - Returns the formatted string
+
+These following "formatting verbs" work with the formatting functions above:
+
+### DEFAULT REPRESENTATION
+
+#### The %v variant prints the Go syntax representation of a value, it's a nice default.
+s := fmt.Sprintf("I am %v years old", 10)
+// I am 10 years old
+
+s := fmt.Sprintf("I am %v years old", "way too many")
+// I am way too many years old
+
+### STRING
+
+s := fmt.Sprintf("I am %s years old", "way too many")
+// I am way too many years old
+
+### INTEGER
+
+s := fmt.Sprintf("I am %d years old", 10)
+// I am 10 years old
+
+### FLOAT
+
+s := fmt.Sprintf("I am %f years old", 10.523)
+// I am 10.523000 years old
+
+// The ".2" rounds the number to 2 decimal places
+
+s := fmt.Sprintf("I am %.2f years old", 10.523)
+// I am 10.52 years old
+
